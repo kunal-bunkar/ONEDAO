@@ -26,7 +26,7 @@ export default function RegisterPage() {
         subtitle="Enter your phone number and password below"
       />
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
+      <form onSubmit={handleSubmit} className="auth-form auth-form--compact">
         <AuthInput
           id="register-email"
           label="Email ID"
@@ -67,7 +67,7 @@ export default function RegisterPage() {
         </div>
       </form>
 
-      <p className="auth-footer mt-5 text-center">
+      <p className="auth-footer mt-[clamp(10px,1.8vh,20px)] text-center">
         Already have an account?{' '}
         <Link to="/login" className="auth-footer-link hover:underline">
           Login

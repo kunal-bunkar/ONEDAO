@@ -35,7 +35,7 @@ export default function OtpInput({ value, onChange }) {
   }
 
   return (
-    <div className="flex justify-center gap-2 sm:gap-3">
+    <div className="auth-otp-group">
       {Array.from({ length: OTP_LENGTH }).map((_, index) => (
         <input
           key={index}
@@ -49,7 +49,7 @@ export default function OtpInput({ value, onChange }) {
           onChange={(event) => handleChange(index, event.target.value)}
           onKeyDown={(event) => handleKeyDown(index, event)}
           onPaste={handlePaste}
-          className="auth-input h-10 w-10 px-0 text-center"
+          className="auth-input auth-otp-input"
         />
       ))}
     </div>

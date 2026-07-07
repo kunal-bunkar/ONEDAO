@@ -19,9 +19,15 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
-  min-height: 100svh;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,11 +37,60 @@ body {
   min-height: 100svh;
 }
 
+.auth-page {
+  display: flex;
+  height: 100svh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f5f5f5;
+  padding: 16px;
+}
+
+.auth-scale-host {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.auth-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--auth-border-color);
+  transform-origin: top left;
+}
+
+.auth-image-panel {
+  height: 100%;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.auth-form-panel {
+  display: flex;
+  height: 100%;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(24px, 4vh, 36px) clamp(20px, 4vw, 40px);
+}
+
+.auth-form-panel--centered {
+  align-items: center;
+  text-align: center;
+}
+
 .auth-title {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 100%;
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 120%;
   letter-spacing: 0;
   color: var(--auth-title-color);
 }
@@ -43,8 +98,8 @@ body {
 .auth-subtitle {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 140%;
   letter-spacing: 0;
   color: var(--auth-subtitle-color);
 }
@@ -52,7 +107,7 @@ body {
 .auth-label {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 12px;
+  font-size: clamp(10px, 1.2vw, 12px);
   line-height: 100%;
   letter-spacing: 0;
   color: var(--auth-label-color);
@@ -63,11 +118,11 @@ body {
   border: 1px solid var(--auth-input-border);
   border-radius: 8px;
   background: var(--auth-input-bg);
-  padding: 10px 12px;
+  padding: clamp(8px, 1.2vh, 10px) clamp(10px, 1.5vw, 12px);
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 120%;
   letter-spacing: 0;
   color: var(--auth-label-color);
 }
@@ -75,8 +130,8 @@ body {
 .auth-input::placeholder {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 120%;
   letter-spacing: 0;
   color: var(--auth-subtitle-color);
 }
@@ -89,8 +144,8 @@ body {
 .auth-footer {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 140%;
   letter-spacing: 0;
   color: var(--auth-subtitle-color);
 }
@@ -98,4 +153,46 @@ body {
 .auth-footer-link {
   font-weight: 600;
   color: var(--auth-title-color);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.8vh, 16px);
+}
+
+.auth-form--compact {
+  gap: clamp(8px, 1.4vh, 14px);
+}
+
+.auth-button {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: #101010;
+  padding: clamp(10px, 1.5vh, 12px) 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 100%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-button:hover {
+  background: #000000;
+}
+
+.auth-otp-input {
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
+  padding: 0;
+  text-align: center;
+}
+
+.auth-otp-group {
+  display: flex;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 10px);
 }

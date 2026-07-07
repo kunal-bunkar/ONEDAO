@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HiOutlineMail, HiOutlineLockClosed } from 'react-icons/hi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import AuthLayout from '../../components/auth/AuthLayout'
@@ -23,7 +22,7 @@ export default function LoginPage() {
         subtitle="Enter your email id and password below"
       />
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="auth-form">
         <AuthInput
           id="login-email"
           label="Email ID"
@@ -53,7 +52,7 @@ export default function LoginPage() {
         </div>
       </form>
 
-      <p className="auth-footer mt-6 text-center">
+      <p className="auth-footer mt-[clamp(12px,2vh,24px)] text-center">
         Don&apos;t have an account?{' '}
         <Link to="/register" className="auth-footer-link hover:underline">
           Register

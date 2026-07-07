@@ -16,9 +16,9 @@ export default function VerifyEmailPage() {
 
   return (
     <AuthLayout centered>
-      <div className="mb-6 w-full">
-        <div className="mb-3 flex justify-center text-[#252733]">
-          <MdOutlineMarkEmailRead className="h-9 w-9" />
+      <div className="mb-[clamp(12px,2vh,24px)] w-full">
+        <div className="mb-[clamp(8px,1.5vh,12px)] flex justify-center text-[#252733]">
+          <MdOutlineMarkEmailRead className="h-[clamp(28px,5vw,36px)] w-[clamp(28px,5vw,36px)]" />
         </div>
         <AuthHeader
           title="Verify your email"
@@ -26,7 +26,7 @@ export default function VerifyEmailPage() {
         />
       </div>
 
-      <form onSubmit={handleSubmit} className="w-full space-y-6">
+      <form onSubmit={handleSubmit} className="auth-form w-full">
         <OtpInput value={otp} onChange={setOtp} />
 
         <AuthButton type="submit">
