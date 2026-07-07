@@ -40,7 +40,7 @@ export default function Sidebar({ open, onClose, activeId, onSelect }) {
       )}
 
       <aside
-        className={`fixed top-0 left-0 z-50 flex h-screen w-[278px] flex-col bg-[#363740] transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 left-0 z-50 flex h-screen w-[276px] flex-col bg-[#101010] transition-transform duration-300 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >

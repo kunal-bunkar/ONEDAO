@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
 import {
   averageGradePoints,
@@ -5,11 +6,11 @@ import {
   examsPoints,
 } from '../../data/dashboardData'
 
-const CHART_WIDTH = 620
-const CHART_HEIGHT = 240
-const PADDING = { top: 24, right: 20, bottom: 32, left: 30 }
+const CHART_WIDTH = 571
+const CHART_HEIGHT = 220
+const PADDING = { top: 8, right: 4, bottom: 8, left: 4 }
 const MAX_Y = 4
-const HIGHLIGHT_INDEX = 7
+const HIGHLIGHT_WIDTH = 46
 
 function getCoordinates(points) {
   const innerW = CHART_WIDTH - PADDING.left - PADDING.right
@@ -44,140 +45,178 @@ function buildSmoothPath(coords) {
   return path
 }
 
+function getMonthCenterPercent(index, innerW) {
+  const x = PADDING.left + (index / (chartMonths.length - 1)) * innerW
+  return ((x - HIGHLIGHT_WIDTH / 2) / CHART_WIDTH) * 100
+}
+
 export default function StatisticChart() {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+
   const avgCoords = getCoordinates(averageGradePoints)
   const examsCoords = getCoordinates(examsPoints)
   const avgPath = buildSmoothPath(avgCoords)
   const examsPath = buildSmoothPath(examsCoords)
 
   const innerW = CHART_WIDTH - PADDING.left - PADDING.right
-  const highlightX =
-    PADDING.left + (HIGHLIGHT_INDEX / (chartMonths.length - 1)) * innerW
-  const highlightValue = averageGradePoints[HIGHLIGHT_INDEX]
-  const highlightY = avgCoords[HIGHLIGHT_INDEX].y
+  const columnWidth = innerW / (chartMonths.length - 1)
+
+  const handleMonthHover = (index) => setHoveredIndex(index)
+  const clearMonthHover = () => setHoveredIndex(null)
+
+  const activeExamsPoint =
+    hoveredIndex !== null ? examsCoords[hoveredIndex] : null
+  const activeTooltipValue =
+    hoveredIndex !== null ? examsPoints[hoveredIndex].toFixed(1) : null
 
   return (
-    <section className="flex min-w-0 flex-1 flex-col rounded-2xl border border-[#E8E9ED] bg-white p-5">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-base font-semibold text-[#252733]">Statistic</h2>
-        <div className="flex items-center gap-2 text-sm text-[#252733]">
-          <button
-            type="button"
-            className="rounded p-1 hover:bg-gray-100"
-            aria-label="Previous month"
-          >
-            <HiOutlineChevronLeft className="h-4 w-4" />
+    <section className="statistic-chart">
+      <div className="statistic-chart-header">
+        <h2 className="statistic-chart-title">Statistic</h2>
+        <div className="statistic-chart-date">
+          <button type="button" className="statistic-chart-date-btn" aria-label="Previous month">
+            <HiOutlineChevronLeft className="h-4 w-4 text-[#2E3A59]" />
           </button>
-          <span className="font-medium">Aug 2021</span>
-          <button
-            type="button"
-            className="rounded p-1 hover:bg-gray-100"
-            aria-label="Next month"
-          >
-            <HiOutlineChevronRight className="h-4 w-4" />
+          <span className="statistic-chart-date-label">Aug 2021</span>
+          <button type="button" className="statistic-chart-date-btn" aria-label="Next month">
+            <HiOutlineChevronRight className="h-4 w-4 text-[#2E3A59]" />
           </button>
         </div>
       </div>
 
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3 text-xs text-[#9FA2B4]">
-        <span className="font-medium text-[#252733]">Progress score</span>
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[#5B6BFF]" />
-            Average grade
+      <div className="statistic-chart-legend">
+        <span className="statistic-chart-progress">Progress score</span>
+        <div className="statistic-chart-legend-items">
+          <span className="statistic-chart-legend-item">
+            <span className="statistic-chart-dot statistic-chart-dot--blue" />
+            Avarage grade
           </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[#4FD1C5]" />
+          <span className="statistic-chart-legend-item">
+            <span className="statistic-chart-dot statistic-chart-dot--green" />
             Exams
           </span>
         </div>
       </div>
 
-      <div className="relative w-full min-w-0 flex-1">
-        <svg
-          viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
-          className="h-auto w-full"
-          preserveAspectRatio="xMidYMid meet"
-          role="img"
-          aria-label="Statistic line chart"
-        >
-          {[0, 1, 2, 3, 4].map((tick) => {
-            const y =
-              PADDING.top +
-              ((CHART_HEIGHT - PADDING.top - PADDING.bottom) / 4) * tick
-            return (
-              <line
-                key={tick}
-                x1={PADDING.left}
-                y1={y}
-                x2={CHART_WIDTH - PADDING.right}
-                y2={y}
-                stroke="#F0F1F5"
-                strokeWidth="1"
-              />
-            )
-          })}
-
-          <rect
-            x={highlightX - 14}
-            y={PADDING.top}
-            width={28}
-            height={CHART_HEIGHT - PADDING.top - PADDING.bottom}
-            fill="#E8E9ED"
-            opacity="0.55"
-            rx="2"
+      <div
+        className="statistic-chart-plot"
+        onMouseLeave={clearMonthHover}
+      >
+        {hoveredIndex !== null && (
+          <div
+            className="statistic-chart-highlight"
+            style={{
+              left: `${getMonthCenterPercent(hoveredIndex, innerW)}%`,
+              width: HIGHLIGHT_WIDTH,
+            }}
           />
+        )}
 
-          <path
-            d={examsPath}
-            fill="none"
-            stroke="#4FD1C5"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d={avgPath}
-            fill="none"
-            stroke="#5B6BFF"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <div className="statistic-chart-plot-area">
+          <svg
+            viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+            className="statistic-chart-svg"
+            preserveAspectRatio="none"
+            role="img"
+            aria-label="Statistic line chart"
+          >
+            {[0, 1, 2, 3, 4].map((tick) => {
+              const y =
+                PADDING.top +
+                ((CHART_HEIGHT - PADDING.top - PADDING.bottom) / 4) * tick
+              return (
+                <line
+                  key={tick}
+                  x1={PADDING.left}
+                  y1={y}
+                  x2={CHART_WIDTH - PADDING.right}
+                  y2={y}
+                  stroke="#E8EAEF"
+                  strokeWidth="1"
+                />
+              )
+            })}
 
-          <circle cx={highlightX} cy={highlightY} r="4" fill="#5B6BFF" />
-          <circle cx={highlightX} cy={highlightY} r="7" fill="#5B6BFF" opacity="0.2" />
+            <path
+              d={avgPath}
+              fill="none"
+              stroke="#5B6BFF"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d={examsPath}
+              fill="none"
+              stroke="#39DE54"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
 
-          <g transform={`translate(${highlightX - 18}, ${highlightY - 36})`}>
-            <rect width="36" height="22" rx="4" fill="#9FA2B4" />
-            <text
-              x="18"
-              y="15"
-              textAnchor="middle"
-              fill="#fff"
-              fontSize="11"
-              fontWeight="600"
+            {chartMonths.map((_, index) => {
+              const x = PADDING.left + (index / (chartMonths.length - 1)) * innerW
+              return (
+                <rect
+                  key={`hover-${index}`}
+                  x={x - columnWidth / 2}
+                  y={PADDING.top}
+                  width={columnWidth}
+                  height={CHART_HEIGHT - PADDING.top - PADDING.bottom}
+                  fill="transparent"
+                  className="statistic-chart-hover-zone"
+                  onMouseEnter={() => handleMonthHover(index)}
+                />
+              )
+            })}
+
+            {activeExamsPoint && activeTooltipValue && (
+              <>
+                <circle cx={activeExamsPoint.x} cy={activeExamsPoint.y} r="5" fill="#39DE54" />
+                <circle
+                  cx={activeExamsPoint.x}
+                  cy={activeExamsPoint.y}
+                  r="8"
+                  fill="#39DE54"
+                  opacity="0.2"
+                />
+                <g
+                  transform={`translate(${activeExamsPoint.x - 22}, ${activeExamsPoint.y - 38})`}
+                >
+                  <rect width="44" height="24" rx="4" fill="#8791AB" />
+                  <text
+                    x="22"
+                    y="16"
+                    textAnchor="middle"
+                    fill="#FFFFFF"
+                    fontSize="11"
+                    fontWeight="500"
+                    fontFamily="Montserrat, sans-serif"
+                  >
+                    {activeTooltipValue}
+                  </text>
+                </g>
+              </>
+            )}
+          </svg>
+        </div>
+
+        <div className="statistic-chart-months">
+          {chartMonths.map((month, index) => (
+            <button
+              key={month}
+              type="button"
+              className={`statistic-chart-month-btn ${
+                hoveredIndex === index ? 'statistic-chart-month-btn--active' : ''
+              }`}
+              onMouseEnter={() => handleMonthHover(index)}
+              onFocus={() => handleMonthHover(index)}
+              onBlur={clearMonthHover}
             >
-              {highlightValue.toFixed(1)}
-            </text>
-          </g>
-
-          {chartMonths.map((month, index) => {
-            const x = PADDING.left + (index / (chartMonths.length - 1)) * innerW
-            return (
-              <text
-                key={month}
-                x={x}
-                y={CHART_HEIGHT - 10}
-                textAnchor="middle"
-                fill="#9FA2B4"
-                fontSize="11"
-              >
-                {month}
-              </text>
-            )
-          })}
-        </svg>
+              {month}
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   )

@@ -23,9 +23,9 @@ export default function DashboardLayout() {
         <div className="dashboard-main-inner">
           <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
 
-          <section className="mb-6 lg:mb-8">
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:items-start">
-              <div className="flex min-w-0 flex-col gap-5">
+          <section className="dashboard-middle mb-6 lg:mb-8">
+            <div className="dashboard-middle-grid">
+              <div className="dashboard-middle-left">
                 <KnowledgeBaseCards />
                 <StatisticChart />
               </div>
@@ -34,7 +34,7 @@ export default function DashboardLayout() {
             </div>
           </section>
 
-          <section>
+          <section className="orders-table-wrap">
             <OrdersTable />
           </section>
         </div>

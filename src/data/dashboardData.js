@@ -14,33 +14,32 @@ export const menuItems = [
 
 export const knowledgeCards = [
   {
-    id: "orders",
-    title: "Total Orders",
-    bg: "#E5F0FF",
-    iconBg: "#4C8DFF",
-    icon: "folder",
+    id: 'orders',
+    title: 'Total Orders',
+    bg: '#3366FF33',
+    accent: '#3366FF',
+    icon: 'folder',
   },
   {
-    id: "earnings",
-    title: "Total Earnings",
-    bg: "#FFE8E8",
-    iconBg: "#FF6B6B",
-    icon: "wallet",
+    id: 'earnings',
+    title: 'Total Earnings',
+    bg: '#FF333F33',
+    accent: '#FF333F',
+    icon: 'wallet',
   },
   {
-    id: "profit",
-    title: "Profit",
-    bg: "#FFF0E0",
-    iconBg: "#FF9F43",
-    icon: "profit",
+    id: 'profit',
+    title: 'Profit',
+    bg: '#FF953333',
+    accent: '#FF9533',
+    icon: 'profit',
   },
   {
-    id: "audio",
-    title: "Audio files",
-    bg: "#39DE54",
-    iconBg: "#2BC448",
-    icon: "audio",
-    titleFont: "Montserrat",
+    id: 'audio',
+    title: 'Audio files',
+    bg: '#39DE5433',
+    accent: '#39DE54',
+    icon: 'audio',
   },
 ];
 
@@ -60,10 +59,10 @@ export const chartMonths = [
 ];
 
 export const averageGradePoints = [
-  2.4, 3.2, 2.5, 3.5, 2.7, 3.6, 3.0, 3.9, 3.1, 2.8, 3.4, 3.0,
+  1.1, 1.8, 2.4, 2.9, 3.5, 3.3, 2.9, 3.0, 2.4, 2.0, 2.6, 3.4,
 ];
 export const examsPoints = [
-  2.9, 2.4, 3.3, 2.6, 3.4, 2.9, 3.5, 3.2, 2.7, 3.6, 2.9, 3.3,
+  1.1, 1.6, 2.3, 3.4, 3.1, 2.3, 2.7, 3.0, 2.8, 2.4, 2.0, 3.7,
 ];
 
 export const topDrivers = [
@@ -78,9 +77,9 @@ export const topDrivers = [
   {
     id: 2,
     name: "Gina Garza",
-    phone: "+998 (99) 436-46-15",
+    phone: "+998 (99) 158-10-15",
     orders: 5,
-    income: 98,
+    income: 15,
     avatar: "https://i.pravatar.cc/80?img=15",
   },
   {
@@ -120,80 +119,57 @@ export const topDrivers = [
 export const tableRows = [
   {
     id: 1,
-    name: "Sierra Ferguson",
-    phone: "+998 (91) 234-56-78",
-    comfort: "simple",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=5",
+    name: 'Sierra Ferguson',
+    phone: '+998 (99) 436-46-15',
+    comfort: 'simple',
+    orderedAt: '04.12.2021 20:30',
+    start: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    finish: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    income: '50 300 000 SUM',
+    avatar: 'https://i.pravatar.cc/80?img=5',
   },
   {
     id: 2,
-    name: "Ivan Lapshin",
-    phone: "+998 (91) 234-56-78",
-    comfort: "otro",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=11",
+    name: 'Sierra Ferguson',
+    phone: '+998 (99) 436-46-15',
+    comfort: 'otra',
+    orderedAt: '04.12.2021 20:24',
+    start: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    finish: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    income: '300 000 SUM',
+    avatar: 'https://i.pravatar.cc/80?img=5',
   },
   {
     id: 3,
-    name: "Sierra Ferguson",
-    phone: "+998 (91) 234-56-78",
-    comfort: "convenient",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=9",
+    name: 'Sierra Ferguson',
+    phone: '+998 (99) 436-46-15',
+    comfort: 'convenient',
+    orderedAt: '04.12.2021 20:23',
+    start: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    finish: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    income: '5 300 000 SUM',
+    avatar: 'https://i.pravatar.cc/80?img=5',
   },
   {
     id: 4,
-    name: "Ivan Lapshin",
-    phone: "+998 (91) 234-56-78",
-    comfort: "simple",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=14",
+    name: 'Sierra Ferguson',
+    phone: '+998 (99) 436-46-15',
+    comfort: 'simple',
+    orderedAt: '04.12.2021 20:20',
+    start: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    finish: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    income: '1 200 000 SUM',
+    avatar: 'https://i.pravatar.cc/80?img=5',
   },
   {
     id: 5,
-    name: "Sierra Ferguson",
-    phone: "+998 (91) 234-56-78",
-    comfort: "otro",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=20",
-  },
-  {
-    id: 6,
-    name: "Ivan Lapshin",
-    phone: "+998 (91) 234-56-78",
-    comfort: "convenient",
-    orderedAt: "04.12.2021 20:30",
-    start:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    finish:
-      "Mirzo Ulugbek district, M.Ulugbek street, house 84, apartment 26, Tashkent, Uzbekistan",
-    income: "50 300 000 SUM",
-    avatar: "https://i.pravatar.cc/80?img=25",
+    name: 'Sierra Ferguson',
+    phone: '+998 (99) 436-46-15',
+    comfort: 'otra',
+    orderedAt: '04.12.2021 20:18',
+    start: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    finish: "21 Hamidulla Oripov ko'chasi, Тошкент, Oʻzbekiston",
+    income: '800 000 SUM',
+    avatar: 'https://i.pravatar.cc/80?img=5',
   },
 ];

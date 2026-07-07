@@ -4,7 +4,7 @@ import { tableRows } from '../../data/dashboardData'
 
 export default function OrdersTable() {
   const [selected, setSelected] = useState([])
-  const [page, setPage] = useState(2)
+  const [page, setPage] = useState(1)
 
   const toggleAll = () => {
     setSelected(selected.length === tableRows.length ? [] : tableRows.map((row) => row.id))
@@ -17,61 +17,73 @@ export default function OrdersTable() {
   }
 
   return (
-    <section className="rounded-2xl border border-[#E8E9ED] bg-white">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[960px] border-collapse text-left">
+    <section className="orders-table-section">
+      <div className="orders-table-scroll">
+        <table className="orders-table">
           <thead>
-            <tr className="border-b border-[#E8E9ED] text-xs font-semibold text-[#9FA2B4] uppercase">
-              <th className="px-4 py-4">
+            <tr>
+              <th className="orders-table-th orders-table-th--check">
                 <input
                   type="checkbox"
-                  checked={selected.length === tableRows.length}
+                  checked={selected.length === tableRows.length && tableRows.length > 0}
                   onChange={toggleAll}
-                  className="h-4 w-4 rounded border-[#D1D5DB]"
+                  className="orders-table-checkbox"
+                  aria-label="Select all rows"
                 />
               </th>
-              <th className="px-4 py-4">User</th>
-              <th className="px-4 py-4">Car Comfort</th>
-              <th className="px-4 py-4">Ordered Time</th>
-              <th className="px-4 py-4">Start Location</th>
-              <th className="px-4 py-4">Finish Location</th>
-              <th className="px-4 py-4">Income</th>
+              <th className="orders-table-th">User</th>
+              <th className="orders-table-th">Car Comfort</th>
+              <th className="orders-table-th">Ordered Time</th>
+              <th className="orders-table-th">Start Location</th>
+              <th className="orders-table-th">Finish Location</th>
+              <th className="orders-table-th">Income</th>
             </tr>
           </thead>
           <tbody>
             {tableRows.map((row) => (
-              <tr key={row.id} className="border-b border-[#F0F1F5] text-sm last:border-b-0">
-                <td className="px-4 py-4">
+              <tr key={row.id} className="orders-table-row">
+                <td className="orders-table-td orders-table-td--check">
                   <input
                     type="checkbox"
                     checked={selected.includes(row.id)}
                     onChange={() => toggleRow(row.id)}
-                    className="h-4 w-4 rounded border-[#D1D5DB]"
+                    className="orders-table-checkbox"
+                    aria-label={`Select ${row.name}`}
                   />
                 </td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center gap-3">
+                <td className="orders-table-td">
+                  <div className="orders-table-user">
                     <img
                       src={row.avatar}
                       alt={row.name}
-                      className="h-9 w-9 rounded-full object-cover"
+                      className="orders-table-avatar"
                     />
-                    <div>
-                      <p className="font-medium text-[#252733]">{row.name}</p>
-                      <p className="text-xs text-[#9FA2B4]">{row.phone}</p>
+                    <div className="orders-table-user-info">
+                      <p className="orders-table-user-name">{row.name}</p>
+                      <p className="orders-table-user-phone">{row.phone}</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-4 text-[#252733]">{row.comfort}</td>
-                <td className="px-4 py-4 whitespace-nowrap text-[#252733]">{row.orderedAt}</td>
-                <td className="max-w-[180px] px-4 py-4 text-xs leading-relaxed text-[#9FA2B4]">
-                  {row.start}
+                <td className="orders-table-td">
+                  <span className="orders-table-cell-text">{row.comfort}</span>
                 </td>
-                <td className="max-w-[180px] px-4 py-4 text-xs leading-relaxed text-[#9FA2B4]">
-                  {row.finish}
+                <td className="orders-table-td">
+                  <span className="orders-table-cell-text orders-table-cell-text--nowrap">
+                    {row.orderedAt}
+                  </span>
                 </td>
-                <td className="px-4 py-4 font-semibold whitespace-nowrap text-[#00B69B]">
-                  {row.income}
+                <td className="orders-table-td">
+                  <span className="orders-table-cell-text orders-table-cell-text--location">
+                    {row.start}
+                  </span>
+                </td>
+                <td className="orders-table-td">
+                  <span className="orders-table-cell-text orders-table-cell-text--location">
+                    {row.finish}
+                  </span>
+                </td>
+                <td className="orders-table-td">
+                  <span className="orders-table-income">{row.income}</span>
                 </td>
               </tr>
             ))}
@@ -79,13 +91,13 @@ export default function OrdersTable() {
         </table>
       </div>
 
-      <div className="flex flex-wrap items-center justify-end gap-3 border-t border-[#E8E9ED] px-4 py-4 text-sm text-[#9FA2B4]">
-        <span>1-2 of items</span>
-        <div className="flex items-center gap-1">
+      <div className="orders-table-pagination">
+        <span className="orders-table-pagination-text">1-2 of items</span>
+        <div className="orders-table-pagination-controls">
           <button
             type="button"
-            className="rounded p-1 hover:bg-gray-100"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            className="orders-table-page-btn orders-table-page-btn--arrow orders-table-page-btn--disabled"
+            disabled
             aria-label="Previous page"
           >
             <HiOutlineChevronLeft className="h-4 w-4" />
@@ -95,10 +107,8 @@ export default function OrdersTable() {
               key={num}
               type="button"
               onClick={() => setPage(num)}
-              className={`flex h-7 w-7 items-center justify-center rounded ${
-                page === num
-                  ? 'bg-[#5B6BFF] text-white'
-                  : 'text-[#252733] hover:bg-gray-100'
+              className={`orders-table-page-btn ${
+                page === num ? 'orders-table-page-btn--active' : ''
               }`}
             >
               {num}
@@ -106,7 +116,7 @@ export default function OrdersTable() {
           ))}
           <button
             type="button"
-            className="rounded p-1 hover:bg-gray-100"
+            className="orders-table-page-btn orders-table-page-btn--arrow"
             onClick={() => setPage((p) => Math.min(2, p + 1))}
             aria-label="Next page"
           >

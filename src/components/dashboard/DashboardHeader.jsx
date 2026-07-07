@@ -1,32 +1,41 @@
-import { HiOutlineMenu, HiOutlineLogout } from 'react-icons/hi'
+import CardChevronIcon from './icons/CardChevronIcon'
+import MenuIcon from './icons/MenuIcon'
+import LogoutIcon from './icons/LogoutIcon'
 
 export default function DashboardHeader({ onMenuClick }) {
   return (
-    <header className="mb-6 flex items-start justify-between gap-4">
-      <div className="flex items-start gap-3">
+    <header className="dashboard-top mb-5">
+      <div className="dashboard-top-bar">
         <button
           type="button"
           onClick={onMenuClick}
-          className="mt-1 rounded-lg p-1 text-[#252733] hover:bg-gray-100 lg:hidden"
+          className="dashboard-menu-btn"
           aria-label="Open menu"
         >
-          <HiOutlineMenu className="h-6 w-6" />
+          <MenuIcon />
         </button>
-        <div>
-          <h1 className="text-xl font-semibold text-[#252733] md:text-2xl">
-            Good morning, Maharram 👋
+
+        <div className="dashboard-top-bar-center">
+          <h1 className="dashboard-greeting">
+            Good morning, <em>Maharram</em>{' '}
+            <span className="dashboard-wave" aria-hidden="true">
+              👋
+            </span>
           </h1>
-          <p className="mt-1 text-sm text-[#5B6BFF]">you have 1 new message</p>
+          <p className="dashboard-message">you have 1 new message</p>
         </div>
+
+        <button type="button" className="dashboard-logout-btn" aria-label="Logout">
+          <LogoutIcon />
+        </button>
       </div>
 
-      <button
-        type="button"
-        className="rounded-lg p-2 text-[#252733] hover:bg-gray-100"
-        aria-label="Logout"
-      >
-        <HiOutlineLogout className="h-5 w-5" />
-      </button>
+      <div className="dashboard-section-row">
+        <h2 className="dashboard-section-title">Knowledge base</h2>
+        <div className="dashboard-section-title-right">
+          <h2 className="dashboard-section-title">Top Drivers</h2>
+        </div>
+      </div>
     </header>
   )
 }
