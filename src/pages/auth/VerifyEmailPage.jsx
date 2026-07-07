@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { MdOutlineMarkEmailRead } from 'react-icons/md'
@@ -8,10 +9,12 @@ import AuthButton from '../../components/auth/AuthButton'
 import OtpInput from '../../components/auth/OtpInput'
 
 export default function VerifyEmailPage() {
+  const navigate = useNavigate()
   const [otp, setOtp] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    navigate('/dashboard')
   }
 
   return (
