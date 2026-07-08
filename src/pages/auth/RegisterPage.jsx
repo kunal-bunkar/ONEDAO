@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { HiOutlineMail, HiOutlineLockClosed } from 'react-icons/hi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import AuthLayout from '../../components/auth/AuthLayout'
@@ -26,7 +25,7 @@ export default function RegisterPage() {
         subtitle="Enter your phone number and password below"
       />
 
-      <form onSubmit={handleSubmit} className="auth-form auth-form--compact" noValidate>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-[clamp(8px,1.4vh,14px)]" noValidate>
         <AuthInput
           id="register-email"
           name="email"
@@ -70,9 +69,9 @@ export default function RegisterPage() {
         </div>
       </form>
 
-      <p className="auth-footer mt-[clamp(10px,1.8vh,20px)] text-center">
+      <p className="mt-[clamp(10px,1.8vh,20px)] text-center text-[clamp(12px,1.4vw,14px)] leading-[140%] text-[#9FA2B4]">
         Already have an account?{' '}
-        <Link to="/login" className="auth-footer-link hover:underline">
+        <Link to="/login" className="font-semibold text-[#252733] hover:underline">
           Login
         </Link>
       </p>

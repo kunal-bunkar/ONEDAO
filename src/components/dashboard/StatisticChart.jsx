@@ -79,21 +79,25 @@ export default function StatisticChart() {
     hoveredIndex !== null ? examsPoints[hoveredIndex].toFixed(1) : null;
 
   return (
-    <section className="statistic-chart">
-      <div className="statistic-chart-header">
-        <h2 className="statistic-chart-title">Statistic</h2>
-        <div className="statistic-chart-date">
+    <section className="flex w-full min-h-[408px] flex-1 flex-col border border-[#F0F0F0] rounded-lg bg-[#F7F9FC] px-6 pt-5 pb-6">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h2 className="m-0 font-['Montserrat'] font-medium text-xl leading-7 text-[#2E3A59]">
+          Statistic
+        </h2>
+        <div className="flex items-center gap-2">
           <button
             type="button"
-            className="statistic-chart-date-btn"
+            className="flex items-center justify-center border-0 bg-transparent p-0.5 cursor-pointer"
             aria-label="Previous month"
           >
             <HiOutlineChevronLeft className="h-4 w-4 text-[#2E3A59]" />
           </button>
-          <span className="statistic-chart-date-label">Aug 2021</span>
+          <span className="font-['Montserrat'] font-normal text-sm leading-4 text-[#2E3A59] whitespace-nowrap">
+            Aug 2021
+          </span>
           <button
             type="button"
-            className="statistic-chart-date-btn"
+            className="flex items-center justify-center border-0 bg-transparent p-0.5 cursor-pointer"
             aria-label="Next month"
           >
             <HiOutlineChevronRight className="h-4 w-4 text-[#2E3A59]" />
@@ -101,32 +105,37 @@ export default function StatisticChart() {
         </div>
       </div>
 
-      <div className="statistic-chart-legend">
-        <span className="statistic-chart-progress">Progress score</span>
-        <div className="statistic-chart-legend-items">
-          <span className="statistic-chart-legend-item">
-            <span className="statistic-chart-dot statistic-chart-dot--blue" />
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <span className="font-['Montserrat'] font-extrabold text-base leading-6 text-[#2E3A59]">
+          Progress score
+        </span>
+        <div className="flex flex-wrap items-center gap-5">
+          <span className="flex items-center gap-2 font-['Montserrat'] font-normal text-base leading-6 text-[#2E3A59]">
+            <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#5B6BFF]" />
             Avarage grade
           </span>
-          <span className="statistic-chart-legend-item">
-            <span className="statistic-chart-dot statistic-chart-dot--green" />
+          <span className="flex items-center gap-2 font-['Montserrat'] font-normal text-base leading-6 text-[#2E3A59]">
+            <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#39DE54]" />
             Exams
           </span>
         </div>
       </div>
 
-      <div className="statistic-chart-plot" onMouseLeave={clearMonthHover}>
+      <div
+        className="relative flex w-full flex-1 flex-col min-h-[249px]"
+        onMouseLeave={clearMonthHover}
+      >
         {hoveredIndex !== null && (
           <div
-            className="statistic-chart-highlight"
+            className="absolute top-0 bottom-0 z-[1] min-w-8 max-w-14 bg-[rgba(135,145,171,0.28)] pointer-events-none transition-[left,width] duration-150"
             style={getHighlightStyle(hoveredIndex, innerW)}
           />
         )}
 
-        <div className="statistic-chart-plot-area">
+        <div className="relative z-[2] flex-1 min-h-[180px]">
           <svg
             viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
-            className="statistic-chart-svg"
+            className="block w-full h-full min-h-[180px]"
             preserveAspectRatio="none"
             role="img"
             aria-label="Statistic line chart"
@@ -175,7 +184,7 @@ export default function StatisticChart() {
                   width={columnWidth}
                   height={CHART_HEIGHT - PADDING.top - PADDING.bottom}
                   fill="transparent"
-                  className="statistic-chart-hover-zone"
+                  className="cursor-pointer"
                   onMouseEnter={() => handleMonthHover(index)}
                 />
               );
@@ -223,15 +232,18 @@ export default function StatisticChart() {
           </svg>
         </div>
 
-        <div className="statistic-chart-months">
+        <div
+          className="relative z-[2] flex items-center justify-between w-full mt-1"
+          style={{ padding: "0 calc(4 / 571 * 100%)" }}
+        >
           {chartMonths.map((month, index) => (
             <button
               key={month}
               type="button"
-              className={`statistic-chart-month-btn ${
+              className={`relative z-[2] border-0 bg-transparent py-1 px-0 font-['Montserrat'] text-[clamp(10px,1.1vw,16px)] leading-5 cursor-pointer text-center whitespace-nowrap flex-none transition-[color,opacity] duration-150${
                 hoveredIndex === index
-                  ? "statistic-chart-month-btn--active"
-                  : ""
+                  ? " opacity-100 font-medium text-white"
+                  : " opacity-70 font-light text-[#2E3A59] hover:opacity-100 hover:font-medium hover:text-white"
               }`}
               onMouseEnter={() => handleMonthHover(index)}
               onFocus={() => handleMonthHover(index)}

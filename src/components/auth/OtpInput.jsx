@@ -93,7 +93,11 @@ export default function OtpInput({ value = '', onChange }) {
   }
 
   return (
-    <div className="auth-otp-group" role="group" aria-label="One-time password">
+    <div
+      className="flex justify-center gap-[clamp(6px,1.5vw,10px)]"
+      role="group"
+      aria-label="One-time password"
+    >
       {digits.map((digit, index) => (
         <input
           key={index}
@@ -111,7 +115,7 @@ export default function OtpInput({ value = '', onChange }) {
           onPaste={handlePaste}
           onFocus={handleFocus}
           aria-label={`OTP digit ${index + 1}`}
-          className="auth-input auth-otp-input"
+          className="relative z-0 flex-shrink-0 rounded-lg border border-[#101010] bg-[#FCFDFE] p-0 text-center text-base leading-none text-[#101010] caret-[#101010] focus:outline-none w-[clamp(36px,8vw,44px)] h-[clamp(36px,8vw,44px)]"
         />
       ))}
     </div>

@@ -24,7 +24,7 @@ export default function LoginPage() {
         subtitle="Enter your email id and password below"
       />
 
-      <form onSubmit={handleSubmit} className="auth-form" noValidate>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-[clamp(10px,1.8vh,16px)]" noValidate>
         <AuthInput
           id="login-email"
           name="email"
@@ -57,9 +57,9 @@ export default function LoginPage() {
         </div>
       </form>
 
-      <p className="auth-footer mt-[clamp(12px,2vh,24px)] text-center">
+      <p className="mt-[clamp(12px,2vh,24px)] text-center text-[clamp(12px,1.4vw,14px)] leading-[140%] text-[#9FA2B4]">
         Don&apos;t have an account?{' '}
-        <Link to="/register" className="auth-footer-link hover:underline">
+        <Link to="/register" className="font-semibold text-[#252733] hover:underline">
           Register
         </Link>
       </p>

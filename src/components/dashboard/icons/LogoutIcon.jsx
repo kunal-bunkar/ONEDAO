@@ -5,7 +5,7 @@ export default function LogoutIcon({ className = '' }) {
     <img
       src={logoutIcon}
       alt=""
-      className={`dashboard-logout-icon ${className}`}
+      className={`block w-10 h-10 object-contain ${className}`}
       width={40}
       height={40}
     />

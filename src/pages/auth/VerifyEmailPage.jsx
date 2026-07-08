@@ -25,7 +25,7 @@ export default function VerifyEmailPage() {
         />
       </div>
 
-      <form onSubmit={handleSubmit} className="auth-form w-full" noValidate>
+      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-[clamp(10px,1.8vh,16px)]" noValidate>
         <OtpInput value={otp} onChange={setOtp} />
 
         <AuthButton type="submit">

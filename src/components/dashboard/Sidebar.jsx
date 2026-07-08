@@ -62,7 +62,7 @@ export default function Sidebar({ open, onClose, activeId, onSelect }) {
           <p className="mb-3 px-6 text-[10px] font-semibold tracking-wider text-[#9FA2B4] uppercase">
             Main menu
           </p>
-          <ul className="sidebar-nav-list">
+          <ul className="list-none m-0 p-0">
             {menuItems.map((item) => {
               const Icon = iconMap[item.icon];
               const isActive = activeId === item.id;
@@ -70,11 +70,19 @@ export default function Sidebar({ open, onClose, activeId, onSelect }) {
               return (
                 <li
                   key={item.id}
-                  className={`sidebar-nav-item ${isActive ? "sidebar-nav-item--active" : ""}`}
+                  className={`relative mb-[2px] pl-4${
+                    isActive
+                      ? " before:content-[''] before:absolute before:right-0 before:top-[-24px] before:w-6 before:h-6 before:pointer-events-none before:z-[1] before:rounded-br-[24px] before:[box-shadow:8px_8px_0_8px_#ffffff] after:content-[''] after:absolute after:right-0 after:bottom-[-24px] after:w-6 after:h-6 after:pointer-events-none after:z-[1] after:rounded-tr-[24px] after:[box-shadow:8px_-8px_0_8px_#ffffff]"
+                      : ""
+                  }`}
                 >
                   <button
                     type="button"
-                    className="sidebar-nav-link"
+                    className={`flex w-full items-center gap-3 border-0 px-5 py-3 font-['Montserrat'] text-sm font-semibold leading-none cursor-pointer transition-colors duration-200${
+                      isActive
+                        ? " relative z-[2] rounded-[100px_0_0_100px] bg-white text-[#5459EA]"
+                        : " bg-transparent text-white"
+                    }`}
                     onClick={() => {
                       onSelect(item.id);
                       onClose?.();

@@ -35,25 +35,23 @@ export default function AuthLayout({ children, centered = false }) {
   const boxWidth = isMobile ? AUTH_BOX.mobileWidth : AUTH_BOX.desktopWidth
 
   return (
-    <div className="auth-page">
+    <div className="flex h-svh w-full items-center justify-center overflow-auto bg-[#f5f5f5] p-4">
       <div
-        className="auth-box"
+        className="flex shrink-0 overflow-hidden rounded-[30px] border border-[#101010] bg-white pointer-events-auto shadow-[5px_3px_20px_0px_#00000066]"
         style={{
           width: `min(100%, ${boxWidth}px)`,
           maxWidth: boxWidth,
           minHeight: AUTH_BOX.height,
-          borderRadius: AUTH_BOX.borderRadius,
-          background: AUTH_BOX.background,
-          boxShadow: AUTH_BOX.boxShadow,
         }}
       >
         {!isMobile && (
           <div
-            className="auth-image-panel"
+            className="h-auto self-stretch flex-shrink-0 bg-cover bg-no-repeat pointer-events-none"
             style={{
               width: AUTH_BOX.imageWidth,
               minHeight: AUTH_BOX.height,
               backgroundImage: `url(${authHero})`,
+              backgroundPosition: 'left center',
             }}
             role="img"
             aria-label="Decorative landscape"
@@ -62,7 +60,7 @@ export default function AuthLayout({ children, centered = false }) {
         )}
 
         <div
-          className={`auth-form-panel ${centered ? 'auth-form-panel--centered' : ''}`}
+          className={`relative z-[2] flex flex-shrink-0 flex-col justify-center overflow-visible px-[clamp(20px,4vw,40px)] py-[clamp(24px,4vh,36px)] pointer-events-auto${centered ? ' items-center text-center' : ''}`}
           style={{
             width: isMobile ? '100%' : AUTH_BOX.formWidth,
             minHeight: AUTH_BOX.height,
