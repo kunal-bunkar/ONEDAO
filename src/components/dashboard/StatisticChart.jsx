@@ -56,6 +56,8 @@ function getHighlightStyle(index, innerW) {
     left: `${(x / CHART_WIDTH) * 100}%`,
     width: `${(columnWidth / CHART_WIDTH) * 100}%`,
     transform: "translateX(-50%)",
+    background:
+      "linear-gradient(to top, rgba(135, 145, 171, 0.4) 46.78%, rgba(135, 145, 171, 0) 100%)",
   };
 }
 
@@ -127,7 +129,7 @@ export default function StatisticChart() {
       >
         {hoveredIndex !== null && (
           <div
-            className="absolute top-0 bottom-0 z-[1] min-w-8 max-w-14 bg-[rgba(135,145,171,0.28)] pointer-events-none transition-[left,width] duration-150"
+            className="absolute top-0 bottom-0 z-[1] min-w-8 max-w-14 pointer-events-none transition-[left,width] duration-150"
             style={getHighlightStyle(hoveredIndex, innerW)}
           />
         )}

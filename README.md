@@ -1,16 +1,39 @@
-# React + Vite
+# Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Figma-to-code Admin Panel with Auth pages and Dashboard.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Live:** [Add your deployed link here]
+- **Video:** [Add your demo video link here]
 
-## React Compiler
+## Setup & Run
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# 1. Install dependencies
+pnpm install
 
-## Expanding the ESLint configuration
+# 2. Start development server
+pnpm dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 3. Open in browser
+# http://localhost:5173
+```
+
+## Pages
+
+| Route | Page |
+|-------|------|
+| `/login` | Login |
+| `/register` | Register |
+| `/verify-email` | OTP Verify |
+| `/dashboard` | Dashboard |
+
+## Tech Stack
+
+- **React 19**
+- **Vite 8**
+- **Tailwind CSS 4**
+- **React Icons**
+- **Font Awesome**
+- **pnpm**

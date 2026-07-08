@@ -37,7 +37,7 @@ export default function AuthLayout({ children, centered = false }) {
   return (
     <div className="flex h-svh w-full items-center justify-center overflow-auto bg-[#f5f5f5] p-4">
       <div
-        className="flex shrink-0 overflow-hidden rounded-[30px] border border-[#101010] bg-white pointer-events-auto shadow-[5px_3px_20px_0px_#00000066]"
+        className="flex shrink-0 overflow-hidden rounded-[30px]  bg-white pointer-events-auto shadow-[5px_3px_20px_0px_#00000066]"
         style={{
           width: `min(100%, ${boxWidth}px)`,
           maxWidth: boxWidth,
