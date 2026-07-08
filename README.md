@@ -5,7 +5,7 @@ Figma-to-code Admin Panel with Auth pages and Dashboard.
 ## Demo
 
 - **Live:** https://one-dao.vercel.app/login
-- **Video:** 
+- **Video:** https://drive.google.com/file/d/1r5JXPnLjTTSdF4xYubxYc0RAxagCbZMW/view?usp=sharing
 
 ## Setup & Run
 
