@@ -18,28 +18,24 @@ export const knowledgeCards = [
     title: 'Total Orders',
     bg: '#3366FF33',
     accent: '#3366FF',
-    icon: 'folder',
   },
   {
     id: 'earnings',
     title: 'Total Earnings',
     bg: '#FF333F33',
     accent: '#FF333F',
-    icon: 'wallet',
   },
   {
     id: 'profit',
     title: 'Profit',
     bg: '#FF953333',
     accent: '#FF9533',
-    icon: 'profit',
   },
   {
     id: 'audio',
     title: 'Audio files',
     bg: '#39DE5433',
     accent: '#39DE54',
-    icon: 'audio',
   },
 ];
 

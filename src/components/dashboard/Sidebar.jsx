@@ -10,8 +10,8 @@ import {
   HiOutlineOfficeBuilding,
   HiOutlineShieldCheck,
   HiOutlineCog,
-} from 'react-icons/hi'
-import { menuItems } from '../../data/dashboardData'
+} from "react-icons/hi";
+import { menuItems } from "../../data/dashboardData";
 
 const iconMap = {
   dashboard: HiOutlineViewGrid,
@@ -25,7 +25,7 @@ const iconMap = {
   branches: HiOutlineOfficeBuilding,
   moderators: HiOutlineShieldCheck,
   settings: HiOutlineCog,
-}
+};
 
 export default function Sidebar({ open, onClose, activeId, onSelect }) {
   return (
@@ -41,7 +41,7 @@ export default function Sidebar({ open, onClose, activeId, onSelect }) {
 
       <aside
         className={`fixed top-0 left-0 z-50 flex h-screen w-[276px] flex-col bg-[#101010] transition-transform duration-300 lg:translate-x-0 ${
-          open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="px-6 pt-8 pb-6">
@@ -64,31 +64,31 @@ export default function Sidebar({ open, onClose, activeId, onSelect }) {
           </p>
           <ul className="sidebar-nav-list">
             {menuItems.map((item) => {
-              const Icon = iconMap[item.icon]
-              const isActive = activeId === item.id
+              const Icon = iconMap[item.icon];
+              const isActive = activeId === item.id;
 
               return (
                 <li
                   key={item.id}
-                  className={`sidebar-nav-item ${isActive ? 'sidebar-nav-item--active' : ''}`}
+                  className={`sidebar-nav-item ${isActive ? "sidebar-nav-item--active" : ""}`}
                 >
                   <button
                     type="button"
                     className="sidebar-nav-link"
                     onClick={() => {
-                      onSelect(item.id)
-                      onClose?.()
+                      onSelect(item.id);
+                      onClose?.();
                     }}
                   >
                     <Icon className="h-5 w-5 shrink-0" />
                     <span>{item.label}</span>
                   </button>
                 </li>
-              )
+              );
             })}
           </ul>
         </nav>
       </aside>
     </>
-  )
+  );
 }

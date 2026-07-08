@@ -1,84 +1,101 @@
-import { useState } from 'react'
-import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
+import { useState } from "react";
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import {
   averageGradePoints,
   chartMonths,
   examsPoints,
-} from '../../data/dashboardData'
+} from "../../data/dashboardData";
 
-const CHART_WIDTH = 571
-const CHART_HEIGHT = 220
-const PADDING = { top: 8, right: 4, bottom: 8, left: 4 }
-const MAX_Y = 4
-const HIGHLIGHT_WIDTH = 46
+const CHART_WIDTH = 571;
+const CHART_HEIGHT = 220;
+const PADDING = { top: 8, right: 4, bottom: 8, left: 4 };
+const MAX_Y = 4;
 
 function getCoordinates(points) {
-  const innerW = CHART_WIDTH - PADDING.left - PADDING.right
-  const innerH = CHART_HEIGHT - PADDING.top - PADDING.bottom
+  const innerW = CHART_WIDTH - PADDING.left - PADDING.right;
+  const innerH = CHART_HEIGHT - PADDING.top - PADDING.bottom;
 
   return points.map((value, index) => ({
     x: PADDING.left + (index / (points.length - 1)) * innerW,
     y: PADDING.top + innerH - (value / MAX_Y) * innerH,
     value,
-  }))
+  }));
 }
 
 function buildSmoothPath(coords) {
-  if (coords.length < 2) return ''
+  if (coords.length < 2) return "";
 
-  let path = `M ${coords[0].x} ${coords[0].y}`
+  let path = `M ${coords[0].x} ${coords[0].y}`;
 
   for (let i = 0; i < coords.length - 1; i += 1) {
-    const p0 = coords[i - 1] || coords[i]
-    const p1 = coords[i]
-    const p2 = coords[i + 1]
-    const p3 = coords[i + 2] || p2
+    const p0 = coords[i - 1] || coords[i];
+    const p1 = coords[i];
+    const p2 = coords[i + 1];
+    const p3 = coords[i + 2] || p2;
 
-    const cp1x = p1.x + (p2.x - p0.x) / 6
-    const cp1y = p1.y + (p2.y - p0.y) / 6
-    const cp2x = p2.x - (p3.x - p1.x) / 6
-    const cp2y = p2.y - (p3.y - p1.y) / 6
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
 
-    path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`
+    path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
   }
 
-  return path
+  return path;
 }
 
-function getMonthCenterPercent(index, innerW) {
-  const x = PADDING.left + (index / (chartMonths.length - 1)) * innerW
-  return ((x - HIGHLIGHT_WIDTH / 2) / CHART_WIDTH) * 100
+function getMonthX(index, innerW) {
+  return PADDING.left + (index / (chartMonths.length - 1)) * innerW;
+}
+
+function getHighlightStyle(index, innerW) {
+  const x = getMonthX(index, innerW);
+  const columnWidth = innerW / (chartMonths.length - 1);
+
+  return {
+    left: `${(x / CHART_WIDTH) * 100}%`,
+    width: `${(columnWidth / CHART_WIDTH) * 100}%`,
+    transform: "translateX(-50%)",
+  };
 }
 
 export default function StatisticChart() {
-  const [hoveredIndex, setHoveredIndex] = useState(null)
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const avgCoords = getCoordinates(averageGradePoints)
-  const examsCoords = getCoordinates(examsPoints)
-  const avgPath = buildSmoothPath(avgCoords)
-  const examsPath = buildSmoothPath(examsCoords)
+  const avgCoords = getCoordinates(averageGradePoints);
+  const examsCoords = getCoordinates(examsPoints);
+  const avgPath = buildSmoothPath(avgCoords);
+  const examsPath = buildSmoothPath(examsCoords);
 
-  const innerW = CHART_WIDTH - PADDING.left - PADDING.right
-  const columnWidth = innerW / (chartMonths.length - 1)
+  const innerW = CHART_WIDTH - PADDING.left - PADDING.right;
+  const columnWidth = innerW / (chartMonths.length - 1);
 
-  const handleMonthHover = (index) => setHoveredIndex(index)
-  const clearMonthHover = () => setHoveredIndex(null)
+  const handleMonthHover = (index) => setHoveredIndex(index);
+  const clearMonthHover = () => setHoveredIndex(null);
 
   const activeExamsPoint =
-    hoveredIndex !== null ? examsCoords[hoveredIndex] : null
+    hoveredIndex !== null ? examsCoords[hoveredIndex] : null;
   const activeTooltipValue =
-    hoveredIndex !== null ? examsPoints[hoveredIndex].toFixed(1) : null
+    hoveredIndex !== null ? examsPoints[hoveredIndex].toFixed(1) : null;
 
   return (
     <section className="statistic-chart">
       <div className="statistic-chart-header">
         <h2 className="statistic-chart-title">Statistic</h2>
         <div className="statistic-chart-date">
-          <button type="button" className="statistic-chart-date-btn" aria-label="Previous month">
+          <button
+            type="button"
+            className="statistic-chart-date-btn"
+            aria-label="Previous month"
+          >
             <HiOutlineChevronLeft className="h-4 w-4 text-[#2E3A59]" />
           </button>
           <span className="statistic-chart-date-label">Aug 2021</span>
-          <button type="button" className="statistic-chart-date-btn" aria-label="Next month">
+          <button
+            type="button"
+            className="statistic-chart-date-btn"
+            aria-label="Next month"
+          >
             <HiOutlineChevronRight className="h-4 w-4 text-[#2E3A59]" />
           </button>
         </div>
@@ -98,17 +115,11 @@ export default function StatisticChart() {
         </div>
       </div>
 
-      <div
-        className="statistic-chart-plot"
-        onMouseLeave={clearMonthHover}
-      >
+      <div className="statistic-chart-plot" onMouseLeave={clearMonthHover}>
         {hoveredIndex !== null && (
           <div
             className="statistic-chart-highlight"
-            style={{
-              left: `${getMonthCenterPercent(hoveredIndex, innerW)}%`,
-              width: HIGHLIGHT_WIDTH,
-            }}
+            style={getHighlightStyle(hoveredIndex, innerW)}
           />
         )}
 
@@ -123,7 +134,7 @@ export default function StatisticChart() {
             {[0, 1, 2, 3, 4].map((tick) => {
               const y =
                 PADDING.top +
-                ((CHART_HEIGHT - PADDING.top - PADDING.bottom) / 4) * tick
+                ((CHART_HEIGHT - PADDING.top - PADDING.bottom) / 4) * tick;
               return (
                 <line
                   key={tick}
@@ -134,7 +145,7 @@ export default function StatisticChart() {
                   stroke="#E8EAEF"
                   strokeWidth="1"
                 />
-              )
+              );
             })}
 
             <path
@@ -155,7 +166,7 @@ export default function StatisticChart() {
             />
 
             {chartMonths.map((_, index) => {
-              const x = PADDING.left + (index / (chartMonths.length - 1)) * innerW
+              const x = getMonthX(index, innerW);
               return (
                 <rect
                   key={`hover-${index}`}
@@ -167,12 +178,17 @@ export default function StatisticChart() {
                   className="statistic-chart-hover-zone"
                   onMouseEnter={() => handleMonthHover(index)}
                 />
-              )
+              );
             })}
 
             {activeExamsPoint && activeTooltipValue && (
               <>
-                <circle cx={activeExamsPoint.x} cy={activeExamsPoint.y} r="5" fill="#39DE54" />
+                <circle
+                  cx={activeExamsPoint.x}
+                  cy={activeExamsPoint.y}
+                  r="5"
+                  fill="#39DE54"
+                />
                 <circle
                   cx={activeExamsPoint.x}
                   cy={activeExamsPoint.y}
@@ -183,7 +199,13 @@ export default function StatisticChart() {
                 <g
                   transform={`translate(${activeExamsPoint.x - 22}, ${activeExamsPoint.y - 38})`}
                 >
-                  <rect width="44" height="24" rx="4" fill="#8791AB" />
+                  <rect
+                    width="44"
+                    height="24"
+                    rx="4"
+                    fill="#8791AB"
+                    fillOpacity="0.88"
+                  />
                   <text
                     x="22"
                     y="16"
@@ -207,7 +229,9 @@ export default function StatisticChart() {
               key={month}
               type="button"
               className={`statistic-chart-month-btn ${
-                hoveredIndex === index ? 'statistic-chart-month-btn--active' : ''
+                hoveredIndex === index
+                  ? "statistic-chart-month-btn--active"
+                  : ""
               }`}
               onMouseEnter={() => handleMonthHover(index)}
               onFocus={() => handleMonthHover(index)}
@@ -219,5 +243,5 @@ export default function StatisticChart() {
         </div>
       </div>
     </section>
-  )
+  );
 }

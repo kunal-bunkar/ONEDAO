@@ -26,35 +26,38 @@ export default function RegisterPage() {
         subtitle="Enter your phone number and password below"
       />
 
-      <form onSubmit={handleSubmit} className="auth-form auth-form--compact">
+      <form onSubmit={handleSubmit} className="auth-form auth-form--compact" noValidate>
         <AuthInput
           id="register-email"
+          name="email"
           label="Email ID"
           type="email"
           placeholder="Enter your email id"
-          icon={HiOutlineMail}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          autoComplete="email"
         />
 
         <AuthInput
           id="register-password"
+          name="password"
           label="Password"
           type="password"
           placeholder="Enter your password"
-          icon={HiOutlineLockClosed}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          autoComplete="new-password"
         />
 
         <AuthInput
           id="register-confirm-password"
+          name="confirmPassword"
           label="Confirm Password"
           type="password"
           placeholder="Enter your confirm password"
-          icon={HiOutlineLockClosed}
           value={confirmPassword}
           onChange={(event) => setConfirmPassword(event.target.value)}
+          autoComplete="new-password"
         />
 
         <div className="pt-2">

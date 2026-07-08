@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { MdOutlineMarkEmailRead } from 'react-icons/md'
 import AuthLayout from '../../components/auth/AuthLayout'
 import AuthHeader from '../../components/auth/AuthHeader'
 import AuthButton from '../../components/auth/AuthButton'
@@ -20,16 +19,13 @@ export default function VerifyEmailPage() {
   return (
     <AuthLayout centered>
       <div className="mb-[clamp(12px,2vh,24px)] w-full">
-        <div className="mb-[clamp(8px,1.5vh,12px)] flex justify-center text-[#252733]">
-          <MdOutlineMarkEmailRead className="h-[clamp(28px,5vw,36px)] w-[clamp(28px,5vw,36px)]" />
-        </div>
         <AuthHeader
           title="Verify your email"
           subtitle="Enter the OTP from your register email id"
         />
       </div>
 
-      <form onSubmit={handleSubmit} className="auth-form w-full">
+      <form onSubmit={handleSubmit} className="auth-form w-full" noValidate>
         <OtpInput value={otp} onChange={setOtp} />
 
         <AuthButton type="submit">

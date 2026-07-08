@@ -1,6 +1,6 @@
-import CardChevronIcon from './icons/CardChevronIcon'
-import MenuIcon from './icons/MenuIcon'
-import LogoutIcon from './icons/LogoutIcon'
+import CardChevronIcon from "./icons/CardChevronIcon";
+import MenuIcon from "./icons/MenuIcon";
+import LogoutIcon from "./icons/LogoutIcon";
 
 export default function DashboardHeader({ onMenuClick }) {
   return (
@@ -17,15 +17,22 @@ export default function DashboardHeader({ onMenuClick }) {
 
         <div className="dashboard-top-bar-center">
           <h1 className="dashboard-greeting">
-            Good morning, <em>Maharram</em>{' '}
+            Good morning, <em>Maharram</em>{" "}
             <span className="dashboard-wave" aria-hidden="true">
               👋
             </span>
           </h1>
-          <p className="dashboard-message">you have 1 new message</p>
+          <p className="dashboard-message">
+            <span className="dashboard-message-prefix">you have </span>
+            <span className="dashboard-message-highlight">1 new message</span>
+          </p>
         </div>
 
-        <button type="button" className="dashboard-logout-btn" aria-label="Logout">
+        <button
+          type="button"
+          className="dashboard-logout-btn"
+          aria-label="Logout"
+        >
           <LogoutIcon />
         </button>
       </div>
@@ -37,5 +44,5 @@ export default function DashboardHeader({ onMenuClick }) {
         </div>
       </div>
     </header>
-  )
+  );
 }
