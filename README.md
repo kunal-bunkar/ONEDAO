@@ -1,7 +1,5 @@
 # Admin Panel
 
-Figma-to-code Admin Panel with Auth pages and Dashboard.
-
 ## Demo
 
 - **Live:** https://one-dao.vercel.app/login
