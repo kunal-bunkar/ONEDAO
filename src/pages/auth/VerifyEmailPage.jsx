@@ -26,7 +26,7 @@ export default function VerifyEmailPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-[clamp(10px,1.8vh,16px)]" noValidate>
-        <OtpInput value={otp} onChange={setOtp} />
+        <OtpInput onChange={setOtp} />
 
         <AuthButton type="submit">
           <span className="inline-flex items-center justify-center gap-2">

@@ -1,120 +1,77 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 const OTP_LENGTH = 6
 
-export default function OtpInput({ value = '', onChange }) {
-  const [digits, setDigits] = useState(() =>
-    Array.from({ length: OTP_LENGTH }, (_, i) => value[i] || ''),
-  )
-  const inputsRef = useRef([])
+export default function OtpInput({ onChange }) {
 
-  useEffect(() => {
-    const next = Array.from({ length: OTP_LENGTH }, (_, i) => value[i] || '')
-    setDigits(next)
-  }, [value])
+  const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(''))
 
-  const emitChange = (nextDigits) => {
-    setDigits(nextDigits)
-    onChange?.(nextDigits.join(''))
+
+  const inputRefs = useRef([])
+
+  const updateOtp = (newOtp) => {
+    setOtp(newOtp)
+    onChange?.(newOtp.join(''))
   }
 
-  const focusInput = (index) => {
-    const el = inputsRef.current[index]
-    if (el) {
-      el.focus()
-      el.select()
-    }
-  }
-
+ 
   const handleChange = (index, event) => {
-    const raw = event.target.value.replace(/\D/g, '')
-    if (!raw) {
-      const next = [...digits]
-      next[index] = ''
-      emitChange(next)
-      return
+    const value = event.target.value
+
+
+    if (value && !/^\d$/.test(value)) return
+
+    const newOtp = [...otp]
+    newOtp[index] = value
+    updateOtp(newOtp)
+
+    if (value && index < OTP_LENGTH - 1) {
+      inputRefs.current[index + 1].focus()
     }
-
-    const chars = raw.slice(0, OTP_LENGTH - index).split('')
-    const next = [...digits]
-
-    chars.forEach((char, offset) => {
-      next[index + offset] = char
-    })
-
-    emitChange(next)
-
-    const nextFocus = Math.min(index + chars.length, OTP_LENGTH - 1)
-    focusInput(nextFocus)
   }
 
   const handleKeyDown = (index, event) => {
-    if (event.key === 'Backspace') {
-      event.preventDefault()
-      const next = [...digits]
+    if (event.key !== 'Backspace') return
 
-      if (next[index]) {
-        next[index] = ''
-        emitChange(next)
-        return
-      }
 
-      if (index > 0) {
-        next[index - 1] = ''
-        emitChange(next)
-        focusInput(index - 1)
-      }
-      return
-    }
-
-    if (event.key === 'ArrowLeft' && index > 0) {
-      event.preventDefault()
-      focusInput(index - 1)
-    }
-
-    if (event.key === 'ArrowRight' && index < OTP_LENGTH - 1) {
-      event.preventDefault()
-      focusInput(index + 1)
+    if (!otp[index] && index > 0) {
+      const newOtp = [...otp]
+      newOtp[index - 1] = ''
+      updateOtp(newOtp)
+      inputRefs.current[index - 1].focus()
     }
   }
 
   const handlePaste = (event) => {
     event.preventDefault()
-    const pasted = event.clipboardData.getData('text').replace(/\D/g, '').slice(0, OTP_LENGTH)
-    if (!pasted) return
 
-    const next = Array.from({ length: OTP_LENGTH }, (_, i) => pasted[i] || '')
-    emitChange(next)
-    focusInput(Math.min(pasted.length, OTP_LENGTH) - 1)
-  }
+    const pastedText = event.clipboardData.getData('text')
+    const numbers = pastedText.replace(/\D/g, '').slice(0, OTP_LENGTH).split('')
 
-  const handleFocus = (event) => {
-    event.target.select()
+    const newOtp = Array(OTP_LENGTH).fill('')
+    numbers.forEach((num, i) => {
+      newOtp[i] = num
+    })
+
+    updateOtp(newOtp)
+    inputRefs.current[Math.min(numbers.length, OTP_LENGTH) - 1]?.focus()
   }
 
   return (
-    <div
-      className="flex justify-center gap-[clamp(6px,1.5vw,10px)]"
-      role="group"
-      aria-label="One-time password"
-    >
-      {digits.map((digit, index) => (
+    <div className="flex justify-center gap-[clamp(6px,1.5vw,10px)]">
+      {otp.map((digit, index) => (
         <input
           key={index}
           ref={(el) => {
-            inputsRef.current[index] = el
+            inputRefs.current[index] = el
           }}
           type="text"
           inputMode="numeric"
-          pattern="[0-9]*"
-          autoComplete={index === 0 ? 'one-time-code' : 'off'}
           maxLength={1}
           value={digit}
           onChange={(event) => handleChange(index, event)}
           onKeyDown={(event) => handleKeyDown(index, event)}
           onPaste={handlePaste}
-          onFocus={handleFocus}
-          aria-label={`OTP digit ${index + 1}`}
           className="relative z-0 flex-shrink-0 rounded-lg border border-[#101010] bg-[#FCFDFE] p-0 text-center text-base leading-none text-[#101010] caret-[#101010] focus:outline-none w-[clamp(36px,8vw,44px)] h-[clamp(36px,8vw,44px)]"
         />
       ))}
